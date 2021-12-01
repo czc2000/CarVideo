@@ -1,5 +1,9 @@
 <template>
+  <v-card
+      elevation="15" :hover="true"
+  >
   <div id="control"></div>
+  </v-card>
 </template>
 
 <script>
@@ -10,9 +14,7 @@ export default {
 
 <style scoped>
 #control{
-  background-color: aqua;
-  height: 540px;
-  width: 1140px;
-  border-radius: 20px;
+  height: 547px;
+  width: 900px;
 }
 </style>

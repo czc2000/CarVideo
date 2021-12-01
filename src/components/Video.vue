@@ -1,5 +1,9 @@
 <template>
-    <video id="video" autoplay muted></video>
+  <v-card
+      elevation="15" :hover="true"
+  >
+      <video id="video" autoplay muted></video>
+  </v-card>
 </template>
 <script>
 
@@ -30,7 +34,5 @@ export default {
 #video{
   height: 540px;
   width: 720px;
-  border-radius: 20px;
-  background-color: lightblue;
 }
 </style>
