@@ -1,6 +1,6 @@
 <template>
   <v-card
-      elevation="15" :hover="true"
+      elevation="15" outlined color="#1e1e1e"
   >
       <video id="video" autoplay muted></video>
   </v-card>
