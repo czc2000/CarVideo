@@ -11,11 +11,17 @@
           md="4"
       >
         <v-card
-            class="pa-2 ma-2"
+            class="ma-2"
             :height="535"
             elevation="15"
         >
-          当前状态
+          <v-toolbar
+              elevation="4"
+              rounded
+              color="purple darken-4"
+          >
+            <h3>当前状态</h3>
+          </v-toolbar>
         </v-card>
       </v-col>
       <v-col
@@ -23,11 +29,17 @@
           md="8"
       >
         <v-card
-            class="pa-2 ma-2"
+            class="ma-2"
             :height="535"
             elevation="15"
         >
-          控制
+          <v-toolbar
+              elevation="4"
+              rounded
+              color="indigo darken-4"
+          >
+            <h3>控制小车</h3>
+          </v-toolbar>
         </v-card>
       </v-col>
     </v-row>
@@ -44,6 +56,6 @@ export default {
 <style scoped>
 #control{
   height: 547px;
-  width: 900px;
+  width: 1100px;
 }
 </style>
