@@ -1,9 +1,16 @@
 <template>
   <v-card
-      class="d-flex justify-center align-center" elevation="15" outlined color="#1e1e1e" :width="720" :height="547"
+      elevation="15" outlined color="#1e1e1e"
+      :width="722" :height="640"
+      style="position: relative"
   >
-      <video v-show="!connecting&&success" id="video" autoplay muted></video>
-    <div class="loading" v-show="connecting">
+    <v-progress-linear
+        indeterminate
+        color="light-blue accent-4"
+        :active="loading"
+    ></v-progress-linear>
+    <video v-show="!connecting&&success" id="video" autoplay muted controls></video>
+    <div class="loading" v-if="connecting" >
       <v-progress-circular
           :size="180"
           :width="15"
@@ -15,8 +22,8 @@
       <v-alert
           prominent
           dismissible
-          v-show="!connecting&&!success"
-          :width="540"
+          v-if="!connecting&&!success"
+          :width="720"
           border="left"
           icon="mdi-alert-rhombus"
           color="red accent-3"
@@ -33,6 +40,39 @@
         </v-row>
       </v-alert>
     </div>
+
+    <div class="CamControl d-flex justify-center" v-if="success">
+      <v-btn-toggle
+          borderless
+          color="light-blue darken-4"
+      >
+
+        <v-btn x-large value="left" @click="Camleft">
+          <span class="hidden-sm-and-down">LEFT</span>
+          <v-icon right>
+            mdi-arrow-left-bold-box
+          </v-icon>
+        </v-btn>
+        <v-btn x-large value="center" @click="Camright">
+          <span class="hidden-sm-and-down">RIGHT</span>
+          <v-icon right>
+            mdi-arrow-right-bold-box
+          </v-icon>
+        </v-btn>
+        <v-btn x-large value="right" @click="Camup">
+          <span class="hidden-sm-and-down">UP</span>
+          <v-icon right>
+            mdi-arrow-up-bold-box
+          </v-icon>
+        </v-btn>
+        <v-btn x-large>
+          <span class="hidden-sm-and-down" @click="Camdown">DOWN</span>
+          <v-icon right>
+            mdi-arrow-down-bold-box
+          </v-icon>
+        </v-btn>
+      </v-btn-toggle>
+    </div>
   </v-card>
 </template>
 <script>
@@ -43,6 +83,7 @@ export default {
       webRtcServer:null,
       connecting:false,
       success:false,
+      loading:false,
     }
   },
   components:{
@@ -50,18 +91,18 @@ export default {
   computed: {
   },
   destroyed() {
-      this.webRtcServer.disconnect()
+    this.webRtcServer.disconnect()
   },
   mounted() {
     this.connectWebRtc();
-    },
+  },
   methods: {
     connectWebRtc(){
       this.connecting=true;
       // eslint-disable-next-line no-undef
-      let webRtcServer = new WebRtcStreamer("video","http://0.0.0.0:8000");
+      let webRtcServer = new WebRtcStreamer("video",location.protocol+"//"+window.location.hostname+":8000");
       this.webRtcServer=webRtcServer;
-      webRtcServer.connect("rtsp://10.0.0.1:8554/stream1");
+      webRtcServer.connect("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov","","rtptransport=tcp&timeout=60");
       var that=this;
       setTimeout(function (){
         console.log(webRtcServer)
@@ -70,13 +111,89 @@ export default {
         }
         that.connecting=false
       },2000)
-    }
+    },
+    Camup(){
+      this.loading=true;
+      var that=this;
+      this.axios.get('camup/').then(res=>{
+        console.log(res);
+        setTimeout(function () {
+          that.loading=false;
+        },500)
+      }).catch(err=>{
+        console.log(err);
+        this.loading=false;
+        setTimeout(function () {
+          that.loading=false;
+        },500)
+      })
+    },
+    Camdown(){
+      this.loading=true;
+      var that=this;
+      this.axios.get('camdown/').then(res=>{
+        console.log(res);
+        setTimeout(function () {
+          that.loading=false;
+        },500)
+      }).catch(err=>{
+        console.log(err);
+        this.loading=false;
+        setTimeout(function () {
+          that.loading=false;
+        },500)
+      })
+    },
+    Camleft(){
+      this.loading=true;
+      var that=this;
+      this.axios.get('camleft/').then(res=>{
+        console.log(res);
+        setTimeout(function () {
+          that.loading=false;
+        },500)
+      }).catch(err=>{
+        console.log(err);
+        this.loading=false;
+        setTimeout(function () {
+          that.loading=false;
+        },500)
+      })
+    },
+    Camright(){
+      this.loading=true;
+      var that=this;
+      this.axios.get('camright/').then(res=>{
+        console.log(res);
+        setTimeout(function () {
+          that.loading=false;
+        },500)
+      }).catch(err=>{
+        console.log(err);
+        this.loading=false;
+        setTimeout(function () {
+          that.loading=false;
+        },500)
+      })
+    },
   }
-  }
+}
 </script>
 <style scoped>
 #video{
   height: 540px;
   width: 720px;
+}
+.loading{
+  position: absolute;
+  top:calc(50% - 90px);
+  left: calc(50% - 90px);
+}
+.failure{
+  position: absolute;
+  top:calc(50% - 30px);
+}
+.CamControl{
+  width: 100%;
 }
 </style>
