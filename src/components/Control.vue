@@ -279,7 +279,7 @@ export default {
       var that=this;
       this.axios.get('brake/').then(res=>{
         console.log(res);
-        this.speedChartOption["series"][0].data[0].value+=0;
+        this.speedChartOption["series"][0].data[0].value=0;
         this.speedChart.setOption(this.speedChartOption)
         setTimeout(function () {
           that.loading=false;
@@ -334,11 +334,6 @@ export default {
         setTimeout(function () {
           that.loading=false;
         },500)
-      })
-    },
-    Acc(){
-      this.axios.get('acc/').then(res=>{
-        console.log(res);
       })
     },
     speedChartInit(){

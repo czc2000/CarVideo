@@ -102,7 +102,7 @@ export default {
       // eslint-disable-next-line no-undef
       let webRtcServer = new WebRtcStreamer("video",location.protocol+"//"+window.location.hostname+":8000");
       this.webRtcServer=webRtcServer;
-      webRtcServer.connect("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov","","rtptransport=tcp&timeout=60");
+      webRtcServer.connect("rtsp://10.0.0.1:8554/stream1","","rtptransport=tcp&timeout=60");
       var that=this;
       setTimeout(function (){
         console.log(webRtcServer)
@@ -181,6 +181,7 @@ export default {
 </script>
 <style scoped>
 #video{
+  border-radius: 3px;
   height: 540px;
   width: 720px;
 }
